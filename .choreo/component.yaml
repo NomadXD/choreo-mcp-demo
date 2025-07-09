@@ -1,0 +1,12 @@
+schemaVersion: 1.2
+endpoints:
+  - name: choreo-mcp-vibe-deploy
+    displayName: Choreo MCP Vibe Deploy
+    type: REST
+    service:
+      basePath: /choreo-mcp-vibe-deploy
+      port: 3000
+      type: REST
+    networkVisibilities:
+      - Public
+    # schemaFilePath: openapi.yaml # Uncomment and provide if you have an OpenAPI spec
