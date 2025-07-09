@@ -12,5 +12,5 @@ endpoints:
     # schemaFilePath: openapi.yaml # Uncomment and provide if you have an OpenAPI spec
 dependencies:
   connectionReferences:
-    - name: connection-defaultdb-0def8697-5c22-479c-963a-315502fb4e70
+    - name: connection-choreo-mcp-vibe-deploy-defaultdb
       resourceRef: database:testDBPostgres/defaultdb
