@@ -13,4 +13,4 @@ endpoints:
 dependencies:
   connectionReferences:
     - name: connection-defaultdb-0def8697-5c22-479c-963a-315502fb4e70
-      resourceRef: 01f05bb6-b3f7-1758-b3ca-0e0fec2e7c42
+      resourceRef: database:testDBPostgres/defaultdb
