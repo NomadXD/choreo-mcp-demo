@@ -1,0 +1,144 @@
+openapi: 3.1.0
+info:
+  title: Book Manager API
+  version: 1.0.0
+  description: API for managing a bookstore with basic CRUD operations
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /books:
+    get:
+      summary: Get all books
+      description: Retrieve a list of all books in the bookstore
+      operationId: getAllBooks
+      responses:
+        '200':
+          description: A list of books retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    post:
+      summary: Add a new book
+      description: Add a new book to the bookstore
+      operationId: createBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /books/{id}:
+    get:
+      summary: Get a book by ID
+      description: Retrieve a specific book by its UUID
+      operationId: getBookById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID of the book to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Book retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the book
+        name:
+          type: string
+          description: Name of the book
+        author:
+          type: string
+          description: Author of the book
+      required:
+        - id
+        - name
+        - author
+      example:
+        id: "123e4567-e89b-12d3-a456-426614174000"
+        name: "To Kill a Mockingbird"
+        author: "Harper Lee"
+    
+    BookInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the book
+        author:
+          type: string
+          description: Author of the book
+      required:
+        - name
+        - author
+      example:
+        name: "1984"
+        author: "George Orwell"
+    
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+      required:
+        - error
+      example:
+        error: "Database error." 

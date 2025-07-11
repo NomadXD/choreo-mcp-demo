@@ -9,8 +9,4 @@ endpoints:
       type: REST
     networkVisibilities:
       - Public
-    # schemaFilePath: openapi.yaml # Uncomment and provide if you have an OpenAPI spec
-dependencies:
-  connectionReferences:
-    - name: connection-choreo-mcp-vibe-deploy-defaultdb
-      resourceRef: database:testDBPostgres/defaultdb
+    schemaFilePath: openapi.yaml

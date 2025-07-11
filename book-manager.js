@@ -81,6 +81,48 @@ app.get("/books/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Book manager service running at http://localhost:${port}`);
-});
+// Migration: Create books table if it doesn't exist
+async function runMigrations() {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS books (
+      id uuid PRIMARY KEY,
+      name text NOT NULL,
+      author text NOT NULL
+    );
+  `;
+  await pool.query(createTableQuery);
+}
+
+// Seed: Insert 4 books if table is empty
+async function runSeeds() {
+  const checkCount = await pool.query("SELECT COUNT(*) FROM books");
+  if (parseInt(checkCount.rows[0].count, 10) === 0) {
+    const books = [
+      { id: uuidv4(), name: "To Kill a Mockingbird", author: "Harper Lee" },
+      { id: uuidv4(), name: "1984", author: "George Orwell" },
+      { id: uuidv4(), name: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+      { id: uuidv4(), name: "Pride and Prejudice", author: "Jane Austen" },
+    ];
+    for (const book of books) {
+      await pool.query(
+        "INSERT INTO books (id, name, author) VALUES ($1, $2, $3)",
+        [book.id, book.name, book.author]
+      );
+    }
+    console.log("Seeded 4 books into the database.");
+  }
+}
+
+// Initialize DB and then start server
+(async () => {
+  try {
+    await runMigrations();
+    await runSeeds();
+    app.listen(port, () => {
+      console.log(`Book manager service running at http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error("Failed to initialize database:", err);
+    process.exit(1);
+  }
+})();
