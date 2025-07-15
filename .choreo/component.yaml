@@ -1,12 +1,11 @@
 schemaVersion: 1.2
 endpoints:
-  - name: choreo-mcp-vibe-deploy
-    displayName: Choreo MCP Vibe Deploy
-    type: REST
+  - name: book-listing
+    displayName: Book Listing Service
     service:
       basePath: /
       port: 3000
-      type: REST
+    type: REST
     networkVisibilities:
       - Public
     schemaFilePath: openapi.yaml
