@@ -9,3 +9,35 @@ endpoints:
     networkVisibilities:
       - Public
     schemaFilePath: openapi.yaml
+dependencies:
+  connectionReferences:
+    - name: connection-book-listing-service-defaultdb
+      resourceRef: database:testdbdev/defaultdb
+
+configurations:
+  env:
+    - name: DB_HOST
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-defaultdb
+          key: HostName
+    - name: DB_PORT
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-defaultdb
+          key: Port
+    - name: DB_USERNAME
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-defaultdb
+          key: Username
+    - name: DB_PASSWORD
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-defaultdb
+          key: Password
+    - name: DB_NAME
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-defaultdb
+          key: DatabaseName
