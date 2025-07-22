@@ -12,24 +12,11 @@ app.use(bodyParser.json());
 
 // PostgreSQL connection setup
 const pool = new Pool({
-  user:
-    process.env.CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_USERNAME ||
-    "your_db_user",
-  host:
-    process.env.CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_HOSTNAME ||
-    "localhost",
-  database:
-    process.env
-      .CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_DATABASENAME ||
-    "your_db_name",
-  password:
-    process.env.CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_PASSWORD ||
-    "your_db_password",
-  port: process.env.CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_PORT
-    ? parseInt(
-        process.env.CHOREO_CONNECTION_CHOREO_MCP_VIBE_DEPLOY_DEFAULTDB_PORT
-      )
-    : 5432,
+  user: process.env.DB_USERNAME,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
   ssl: {
     rejectUnauthorized: false,
   },
