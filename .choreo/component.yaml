@@ -9,3 +9,34 @@ endpoints:
     networkVisibilities:
       - Public
     schemaFilePath: openapi.yaml
+dependencies:
+  connectionReferences:
+    - name: connection-book-listing-service-qz-bookdb
+      resourceRef: database:testdbdev/bookdb
+configurations:
+  env:
+    - name: DB_HOST
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-qz-bookdb
+          key: HostName
+    - name: DB_PORT
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-qz-bookdb
+          key: Port
+    - name: DB_USERNAME
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-qz-bookdb
+          key: Username
+    - name: DB_PASSWORD
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-qz-bookdb
+          key: Password
+    - name: DB_NAME
+      valueFrom:
+        connectionRef:
+          name: connection-book-listing-service-qz-bookdb
+          key: DatabaseName
